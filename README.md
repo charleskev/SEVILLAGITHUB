@@ -1,24 +1,19 @@
 # Damage Monitoring and Tracking
 
-Your main page is `frontend/DamageMonitoringPage.jsx`.
+This feature bundle includes the farmer-facing **My Damage Reports** page and the MAO staff review workflow that supplies its status, feedback, and review history.
 
-It contains the farmer-facing **My Damage Reports** screen, where a farmer can:
+Farmers can monitor pending, reviewing, resolved, and rejected reports; search and filter records; inspect photos, incident details, MAO feedback, and review history; export the list as CSV; and print or save an individual report as PDF. MAO staff can inspect submitted reports and record review decisions, remarks, and actions taken.
 
-- monitor pending, reviewing, resolved, and rejected reports;
-- search and filter report records;
-- inspect evidence photos, incident details, MAO feedback, and review history;
-- export a CSV report list; and
-- print or save an individual damage report as a PDF.
+## Included files
 
-## Add it to the team project
+- `client/src/pages/DamageMonitoringPage.jsx` — farmer report tracking page.
+- `client/src/pages/StaffPages.jsx` — MAO review page and report details.
+- `client/src/App.jsx` — connects both pages to the existing routes.
+- `client/src/components/AppShell.jsx` and `StatusBadge.jsx` — review navigation and report status display.
+- `server/src/api/routes/reportRoutes.js`, `controllers/reportController.js`, and `models/reportModel.js` — authenticated report API and data access.
+- `server/src/app.js` — registers the report API.
+- `server/db/migrations/013_report_scan_review_history.sql` — report review fields and history table.
 
-1. Copy `DamageMonitoringPage.jsx` to `client/src/pages/`.
-2. In `client/src/App.jsx`, import `MyReportsPage` from `./pages/DamageMonitoringPage.jsx`.
-3. Keep the existing route: `#my-reports` renders `<MyReportsPage />`.
+## Integrate with AgriSystem
 
-The page uses the project’s existing shared `AppShell`, `PageHeader`, `StatusBadge`, API helper, realtime hook, and `GET /api/reports/mine` endpoint. The current backend files that provide the tracking data are:
-
-- `server/src/api/routes/reportRoutes.js`
-- `server/src/api/controllers/reportController.js`
-- `server/src/api/models/reportModel.js`
-- `server/db/migrations/013_report_scan_review_history.sql`
+Copy the files to the same paths in the AgriSystem project. The pages rely on its existing authentication, API helper, realtime hook, shared layout components, Leaflet setup, and farmer/land/crop models. Run the SQL migration before using review history, remarks, and actions-taken fields. The existing `#my-reports` and `#review` routes open the farmer and staff pages.

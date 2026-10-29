@@ -5,6 +5,8 @@ import StatusBadge from "../components/StatusBadge.jsx";
 import { api } from "../services/api.js";
 import useRealtimeRefresh from "../hooks/useRealtimeRefresh.js";
 import { Error } from "./AuthPages.jsx";
+import { CircleMarker, MapContainer, TileLayer } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 export function MyReportsPage({ token, onLogout }) {
   const [reports, setReports] = useState([]);
   const [error, setError] = useState("");
